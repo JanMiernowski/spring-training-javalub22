@@ -1,4 +1,4 @@
-package pl.sda.springtrainingjavalub22.api;
+package pl.sda.springtrainingjavalub22.api.training;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class HelloWorldApi {
         return "Hello " + firstName + " from my first api";
     }
 
-    @PostMapping("/car")
+    @PostMapping("/hello")
     public String createCar(@RequestBody NewCar newCar) {
         return String.format("Car %s %s created",
                 newCar.getManufacturer(), newCar.getModel());
