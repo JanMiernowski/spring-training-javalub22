@@ -22,6 +22,11 @@ public class InMemoryCarRepository implements CarRepository {
     }
 
     @Override
+    public boolean existsByVin(String vin) {
+        return cars.stream().anyMatch(car -> car.getVin().equalsIgnoreCase(vin));
+    }
+
+    @Override
     public List<Car> findAll() {
         return cars;
     }

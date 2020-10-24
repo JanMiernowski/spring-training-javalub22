@@ -3,6 +3,7 @@ package pl.sda.springtrainingjavalub22.domain.car;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.sda.springtrainingjavalub22.exception.AlreadyExistException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,10 @@ public class CarService {
     private CarRepository carRepository;
 
     public void create(Car car) {
+        if (carRepository.existsByVin(car.getVin())) {
+            throw new AlreadyExistException(String.format("Car with vin %s already exists", car.getVin()));
+        }
+
         carRepository.create(car);
     }
 
