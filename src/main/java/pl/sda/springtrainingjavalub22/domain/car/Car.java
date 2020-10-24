@@ -1,9 +1,6 @@
 package pl.sda.springtrainingjavalub22.domain.car;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pl.sda.springtrainingjavalub22.api.validator.InsurancePeriod;
 import pl.sda.springtrainingjavalub22.api.validator.ManufacturerAndModel;
 import pl.sda.springtrainingjavalub22.api.validator.Vin;
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 @InsurancePeriod
 @ManufacturerAndModel
 public class Car {
