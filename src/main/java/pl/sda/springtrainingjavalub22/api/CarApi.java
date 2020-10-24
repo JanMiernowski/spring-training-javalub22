@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.springtrainingjavalub22.api.model.SearchParams;
 import pl.sda.springtrainingjavalub22.domain.car.Car;
 import pl.sda.springtrainingjavalub22.domain.car.CarService;
 
@@ -22,6 +23,11 @@ public class CarApi {
     @GetMapping
     public List<Car> getAll() {
         return carService.getAll();
+    }
+
+    @PostMapping("/search")
+    public List<Car> getByParams(@RequestBody SearchParams searchParams) {
+        return carService.searchByParams(searchParams);
     }
 
     @GetMapping("/{carId}")

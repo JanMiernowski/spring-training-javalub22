@@ -2,6 +2,7 @@ package pl.sda.springtrainingjavalub22.external.car;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import pl.sda.springtrainingjavalub22.api.model.SearchParams;
 import pl.sda.springtrainingjavalub22.domain.car.Car;
 import pl.sda.springtrainingjavalub22.domain.car.CarRepository;
 
@@ -46,6 +47,14 @@ public class DatabaseCarRepository implements CarRepository {
     @Override
     public void delete(Long id) {
         jpaCarRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Car> findByParams(SearchParams searchParams) {
+        return jpaCarRepository.findBasedOnSearchParams(searchParams)
+                .stream()
+                .map(this::toDomain)
+                .collect(Collectors.toList());
     }
 
     private Car toDomain(CarEntity entity) {

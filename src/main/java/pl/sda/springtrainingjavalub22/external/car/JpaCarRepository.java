@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface JpaCarRepository extends JpaRepository<CarEntity, Long> {
+public interface JpaCarRepository extends JpaRepository<CarEntity, Long>, CustomDatabaseCarRepository {
 
     //select * from car where vin = ?1
     Optional<CarEntity> findByVin(String vin);
