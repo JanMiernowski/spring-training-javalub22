@@ -14,7 +14,9 @@
     </style>
 </head>
 <body>
-    <h4 th:unless="${cars.size() > 0}">Brak samochodów w wypożyczalni</h4>
+   <!-- <h4 th:unless="${cars.size() > 0}">Brak samochodów w wypożyczalni</h4>-->
+
+   <h4 th:if=" ${ #lists.isEmpty(cars) }">Brak samochodów w wypożyczalni</h4>
 
     <table th:if="${cars.size() > 0}">
         <thead>

@@ -6,7 +6,8 @@
 </head>
 <body>
 
-    <form method="post" th:action="@{/mvc/car/add}" th:object="${car}">
+    <form method="post" th:action="@{/mvc/car/addOrEdit}" th:object="${car}">
+        <input type="hidden" th:field="*{id}"/>
         Producent: <input type="text" required th:field="*{manufacturer}"></br>
         Model: <input type="text" required th:field="*{model}"></br>
         Vin: <input type="text" required th:field="*{vin}"></br>
