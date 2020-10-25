@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczalnia aut</title>
+
+    <style>
+        .odd {
+            background-color: darkolivegreen;
+        }
+        .even {
+            background-color: darkkhaki;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <td>Producent</td>
+            <td>Model</td>
+            <td>Vin</td>
+            <td>Rok produkcji</td>
+            <td>Ubezpieczenie od</td>
+            <td>Ubezpieczenie do</td>
+            <td>Akcja</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="car, iterStat : ${cars}" th:class="${iterStat.isOdd()}? 'odd': 'even'">
+                <td><span th:text="${car.manufacturer}"/></td>
+                <td><span th:text="${car.model}"/></td>
+                <td><span th:text="${car.vin}"/></td>
+                <td><span th:text="${car.yearOfProduction}"/></td>
+                <td><span th:text="${car.insuredFrom}"/></td>
+                <td><span th:text="${car.insuredTo}"/></td>
+                <td>
+                    <span th:if="${todayDate.isAfter(car.insuredTo)}">Brak ubezpieczenia</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
