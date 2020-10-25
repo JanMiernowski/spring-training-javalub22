@@ -16,6 +16,8 @@
 <body>
    <!-- <h4 th:unless="${cars.size() > 0}">Brak samochodów w wypożyczalni</h4>-->
 
+   <a th:href="@{/mvc/car/add}">Dodaj nowy samochód</a>
+
    <h4 th:if=" ${ #lists.isEmpty(cars) }">Brak samochodów w wypożyczalni</h4>
 
     <table th:if="${cars.size() > 0}">
@@ -29,6 +31,7 @@
             <td>Ubezpieczenie od</td>
             <td>Ubezpieczenie do</td>
             <td>Akcja</td>
+            <td>Edytuj</td>
         </tr>
         </thead>
         <tbody>
@@ -51,6 +54,9 @@
                 <td>
                     <span th:if="${todayDate.isAfter(car.insuredTo)}">Brak ubezpieczenia</span>
                     <span th:unless="${todayDate.isAfter(car.insuredTo)}">Brak potrzebnych akcji</span>
+                </td>
+                <td>
+                    <a th:href="@{/mvc/car/edit/} + ${car.id}">Edytuj</a>
                 </td>
             </tr>
         </tbody>
