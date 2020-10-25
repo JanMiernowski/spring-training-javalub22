@@ -5,7 +5,11 @@
     <title>Wypożyczalnia aut</title>
 </head>
 <body>
-    <h1>Wypożyczalnia aut</h1>
+    <p><span th:text="${info.name}"></span></p>
+    <p><span th:text="${info.address.street}"/> <span th:text="${info.address.number}"/></p>
+    <p><span th:text="${info.address.city}"/></p>
+    <p>Otwarte od: <span th:text="${info.openingHours.start}"/> do: <span th:text="${info.openingHours.end}"/></p>
+
     <h3>Dziś jest <span th:text="${date}"></span></h3>
 
     <div th:replace="fragments/navigation :: navigation"/>
