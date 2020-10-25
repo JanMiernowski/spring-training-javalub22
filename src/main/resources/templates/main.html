@@ -8,11 +8,7 @@
     <h1>Wypożyczalnia aut</h1>
     <h3>Dziś jest <span th:text="${date}"></span></h3>
 
-    Menu:
-    <ul>
-        <li><a th:href="@{/mvc/car}">Dostępne samochody</a></li>
-    </ul>
-
+    <div th:replace="fragments/navigation :: navigation"/>
 
     Dostępne marki samochodów:
     <ul>
@@ -20,5 +16,8 @@
             <span th:text="${manufacturer}"/>
         </li>
     </ul>
+
+    <div th:replace="fragments/navigation :: footer"/>
+
 </body>
 </html>

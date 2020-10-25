@@ -5,7 +5,12 @@
     <title>Wypożyczalnia aut</title>
 </head>
 <body>
+
+    <div th:replace="fragments/navigation :: navigation"/>
+
     <h1>Wypożyczalnia aut</h1>
     <h3>Wystąpił błąd : <span th:text="${message}"/></h3>
+
+    <div th:replace="fragments/navigation :: footer"/>
 </body>
 </html>

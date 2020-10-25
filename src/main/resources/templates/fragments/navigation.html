@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczalnia aut</title>
+</head>
+<body>
+    <div th:fragment="navigation">
+        Menu:
+        <ul>
+            <li><a th:href="@{/}">Strona główna</a></li>
+            <li><a th:href="@{/mvc/car}">Dostępne samochody</a></li>
+        </ul>
+    </div>
+
+    <div th:fragment="footer">
+        <p>Copyright by SDA 2020</p>
+    </div>
+</body>
+</html>

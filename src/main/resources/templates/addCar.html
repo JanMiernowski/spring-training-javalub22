@@ -13,6 +13,8 @@
 </head>
 <body>
 
+    <div th:replace="fragments/navigation :: navigation"/>
+
     <form method="post" th:action="@{/mvc/car/addOrEdit}" th:object="${car}">
         <input type="hidden" th:field="*{id}"/>
         Producent: <input type="text" required th:field="*{manufacturer}">
@@ -32,5 +34,7 @@
 
         <input type="submit" value="Zapisz"/>
     </form>
+
+    <div th:replace="fragments/navigation :: footer"/>
 </body>
 </html>

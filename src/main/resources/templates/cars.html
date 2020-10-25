@@ -16,6 +16,8 @@
 <body>
    <!-- <h4 th:unless="${cars.size() > 0}">Brak samochodów w wypożyczalni</h4>-->
 
+   <div th:replace="fragments/navigation :: navigation"/>
+
    <a th:href="@{/mvc/car/add}">Dodaj nowy samochód</a>
 
    <form method="post" th:action="@{/mvc/car/search}" th:object="${params}">
@@ -77,5 +79,7 @@
             </tr>
         </tbody>
     </table>
+
+   <div th:replace="fragments/navigation :: footer"/>
 </body>
 </html>
