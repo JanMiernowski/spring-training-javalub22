@@ -48,6 +48,12 @@ public class CarController {
         return mav;
     }
 
+    @GetMapping("/delete/{id}")
+    String handleDeleteCar(@PathVariable Long id) {
+        carService.delete(id);
+        return "redirect:/mvc/car";
+    }
+
     @PostMapping("/addOrEdit")
     String handleAddCar(@ModelAttribute("car") Car car) {
         if (car.getId() != null) {
