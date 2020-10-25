@@ -24,7 +24,7 @@ public class CustomDatabaseCarRepositoryImpl implements CustomDatabaseCarReposit
         Root<CarEntity> root = query.from(CarEntity.class);
 
         List<Predicate> predicates = new ArrayList<>();
-        if (searchParams.getManufacturer() != null) {
+        if (searchParams.getManufacturer() != null && !searchParams.getManufacturer().isEmpty()) {
             predicates.add(criteriaBuilder.equal(root.get("manufacturer"), searchParams.getManufacturer()));
         }
         //... TUTAJ POWINNY ZNALEZC SIE POZOSTALE WARUNKI

@@ -18,6 +18,18 @@
 
    <a th:href="@{/mvc/car/add}">Dodaj nowy samochód</a>
 
+   <form method="post" th:action="@{/mvc/car/search}" th:object="${params}">
+
+       Producent: <input type="text" th:field="*{manufacturer}"/></br>
+       Model: <input type="text" th:field="*{model}"/></br>
+       Produkcja od: <input type="text" th:field="*{productionFrom}"/></br>
+       Produkcja do: <input type="text" th:field="*{productionTo}"/></br>
+       Vin: <input type="text" th:field="*{vin}"/></br>
+
+       <input type="submit" value="Filtruj">
+
+   </form>
+
    <h4 th:if=" ${ #lists.isEmpty(cars) }">Brak samochodów w wypożyczalni</h4>
 
     <table th:if="${cars.size() > 0}">

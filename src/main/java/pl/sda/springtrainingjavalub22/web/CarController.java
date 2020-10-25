@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.sda.springtrainingjavalub22.api.model.SearchParams;
 import pl.sda.springtrainingjavalub22.domain.car.Car;
 import pl.sda.springtrainingjavalub22.domain.car.CarService;
 
@@ -23,7 +24,16 @@ public class CarController {
         ModelAndView mav = new ModelAndView("cars.html");
         mav.addObject("cars", carService.getAll());
         mav.addObject("todayDate", LocalDate.now());
+        mav.addObject("params", new SearchParams());
+        return mav;
+    }
 
+    @PostMapping("/search")
+    ModelAndView handleCarFiltering(@ModelAttribute("params") SearchParams params) {
+        ModelAndView mav = new ModelAndView("cars.html");
+        mav.addObject("cars", carService.searchByParams(params));
+        mav.addObject("todayDate", LocalDate.now());
+        mav.addObject("params", params);
         return mav;
     }
 
