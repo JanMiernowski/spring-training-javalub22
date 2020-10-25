@@ -3,17 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Wypożyczalnia aut</title>
+
+   <style>
+       .warning {
+           color: red;
+       }
+   </style>
+
 </head>
 <body>
 
     <form method="post" th:action="@{/mvc/car/addOrEdit}" th:object="${car}">
         <input type="hidden" th:field="*{id}"/>
-        Producent: <input type="text" required th:field="*{manufacturer}"></br>
-        Model: <input type="text" required th:field="*{model}"></br>
-        Vin: <input type="text" required th:field="*{vin}"></br>
-        Rok produkcji: <input type="number" required th:field="*{yearOfProduction}"></br>
-        Ubezpieczenie od: <input type="date" required th:field="*{insuredFrom}"></br>
-        Ubezpieczenie do: <input type="date" required th:field="*{insuredTo}"></br>
+        Producent: <input type="text" required th:field="*{manufacturer}">
+        <span class="warning" th:if="${ #fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"></span></br>
+        Model: <input type="text" required th:field="*{model}">
+        <span class="warning" th:if="${ #fields.hasErrors('model')}" th:errors="*{model}"></span></br>
+        Vin: <input type="text" required th:field="*{vin}">
+        <span class="warning" th:if="${ #fields.hasErrors('vin')}" th:errors="*{vin}"></span></br>
+        Rok produkcji: <input type="number" required th:field="*{yearOfProduction}">
+        <span class="warning" th:if="${ #fields.hasErrors('yearOfProduction')}" th:errors="*{yearOfProduction}"></span></br>
+        Ubezpieczenie od: <input type="date" required th:field="*{insuredFrom}">
+        <span class="warning" th:if="${ #fields.hasErrors('insuredFrom')}" th:errors="*{insuredFrom}"></span></br>
+        Ubezpieczenie do: <input type="date" required th:field="*{insuredTo}">
+        <span class="warning" th:if="${ #fields.hasErrors('insuredTo')}" th:errors="*{insuredTo}"></span></br>
+
+        <p th:each="err : ${globalErrors}"><span class="warning" th:text="${err}"/></p>
 
         <input type="submit" value="Zapisz"/>
     </form>

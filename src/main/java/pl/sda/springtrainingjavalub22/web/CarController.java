@@ -1,16 +1,21 @@
 package pl.sda.springtrainingjavalub22.web;
 
 import lombok.AllArgsConstructor;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.sda.springtrainingjavalub22.api.model.SearchParams;
 import pl.sda.springtrainingjavalub22.domain.car.Car;
 import pl.sda.springtrainingjavalub22.domain.car.CarService;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("mvc/car")
@@ -65,7 +70,17 @@ public class CarController {
     }
 
     @PostMapping("/addOrEdit")
-    String handleAddCar(@ModelAttribute("car") Car car) {
+    String handleAddCar(@ModelAttribute("car") @Valid Car car, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<String> globalErrors = bindingResult.getGlobalErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            model.addAttribute("globalErrors", globalErrors);
+
+            return "addCar.html";
+        }
+
         if (car.getId() != null) {
             carService.update(car);
         } else {
