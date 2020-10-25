@@ -1,6 +1,7 @@
 package pl.sda.springtrainingjavalub22.domain.car;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import pl.sda.springtrainingjavalub22.api.validator.InsurancePeriod;
 import pl.sda.springtrainingjavalub22.api.validator.ManufacturerAndModel;
 import pl.sda.springtrainingjavalub22.api.validator.Vin;
@@ -13,11 +14,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Builder
 @InsurancePeriod
 @ManufacturerAndModel
 public class Car {
-    @Setter
     private Long id;
     @NotBlank(message = "Manufacturer should be not blank")
     private String manufacturer;
@@ -29,6 +30,8 @@ public class Car {
     @Vin
     private String vin;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate insuredFrom;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate insuredTo;
 }

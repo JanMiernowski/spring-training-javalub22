@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Wypożyczalnia aut</title>
+</head>
+<body>
+
+    <form method="post" th:action="@{/mvc/car/add}" th:object="${car}">
+        Producent: <input type="text" required th:field="*{manufacturer}"></br>
+        Model: <input type="text" required th:field="*{model}"></br>
+        Vin: <input type="text" required th:field="*{vin}"></br>
+        Rok produkcji: <input type="number" required th:field="*{yearOfProduction}"></br>
+        Ubezpieczenie od: <input type="date" required th:field="*{insuredFrom}"></br>
+        Ubezpieczenie do: <input type="date" required th:field="*{insuredTo}"></br>
+
+        <input type="submit" value="Zapisz"/>
+    </form>
+</body>
+</html>
