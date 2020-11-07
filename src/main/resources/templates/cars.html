@@ -18,7 +18,7 @@
 
    <div th:replace="fragments/navigation :: navigation"/>
 
-   <a th:href="@{/mvc/car/add}">Dodaj nowy samochód</a>
+   <a sec:authorize="hasRole('ADMIN')" th:href="@{/mvc/car/add}">Dodaj nowy samochód</a>
 
    <form method="post" th:action="@{/mvc/car/search}" th:object="${params}">
 
@@ -70,10 +70,10 @@
                     <span th:if="${todayDate.isAfter(car.insuredTo)}">Brak ubezpieczenia</span>
                     <span th:unless="${todayDate.isAfter(car.insuredTo)}">Brak potrzebnych akcji</span>
                 </td>
-                <td>
+                <td sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/mvc/car/edit/} + ${car.id}">Edytuj</a>
                 </td>
-                <td>
+                <td sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/mvc/car/delete/} + ${car.id}">Usuń</a>
                 </td>
             </tr>
