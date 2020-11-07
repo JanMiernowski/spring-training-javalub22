@@ -2,6 +2,7 @@ package pl.sda.springtrainingjavalub22.web;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,7 +25,8 @@ public class CarController {
 
     private CarService carService;
 
-    @GetMapping
+    @RequestMapping
+    @PreAuthorize("isAuthenticated()")
     ModelAndView displayCarsPage() {
         ModelAndView mav = new ModelAndView("cars.html");
         mav.addObject("cars", carService.getAll());
@@ -34,6 +36,7 @@ public class CarController {
     }
 
     @PostMapping("/search")
+    @PreAuthorize("isAuthenticated()")
     ModelAndView handleCarFiltering(@ModelAttribute("params") SearchParams params) {
         ModelAndView mav = new ModelAndView("cars.html");
         mav.addObject("cars", carService.searchByParams(params));
@@ -43,6 +46,7 @@ public class CarController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     ModelAndView displayAddCarPage() {
         ModelAndView mav = new ModelAndView("addCar.html");
         mav.addObject("car", new Car());
@@ -50,6 +54,7 @@ public class CarController {
     }
 
     @GetMapping("/edit/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     ModelAndView displayEditCarPage(@PathVariable Long id) {
         Optional<Car> car = carService.getCarById(id);
         ModelAndView mav = new ModelAndView();
@@ -64,12 +69,14 @@ public class CarController {
     }
 
     @GetMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     String handleDeleteCar(@PathVariable Long id) {
         carService.delete(id);
         return "redirect:/mvc/car";
     }
 
     @PostMapping("/addOrEdit")
+    @PreAuthorize("hasRole('ADMIN')")
     String handleAddCar(@ModelAttribute("car") @Valid Car car, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             List<String> globalErrors = bindingResult.getGlobalErrors()
