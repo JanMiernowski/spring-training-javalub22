@@ -42,8 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .and()
-                .formLogin()
-                .successForwardUrl("/mvc/car")
+                    .formLogin()
+                        .loginPage("/mvc/login")
+                        .loginProcessingUrl("/mvc/authenticate")
+                        .defaultSuccessUrl("/mvc/car")
                 .and().csrf().disable();
     }
 }

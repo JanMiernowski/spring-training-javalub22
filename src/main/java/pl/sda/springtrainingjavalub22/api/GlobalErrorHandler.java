@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,9 +14,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @ControllerAdvice
-@ResponseBody
 public class GlobalErrorHandler {
 
+    @ResponseBody
     @ExceptionHandler(value = AlreadyExistException.class)
     public ResponseEntity<Error> handleAlreadyExist(AlreadyExistException ex) {
         String errorCode = UUID.randomUUID().toString();
@@ -25,6 +26,7 @@ public class GlobalErrorHandler {
         return ResponseEntity.status(409).body(new Error(ex.getMessage(), LocalDateTime.now(), errorCode));
     }
 
+    @ResponseBody
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<Error> handleAnyRuntimeException(RuntimeException ex) {
         String errorCode = UUID.randomUUID().toString();
@@ -32,6 +34,11 @@ public class GlobalErrorHandler {
         ex.printStackTrace();
 
         return ResponseEntity.status(500).body(new Error(ex.getMessage(), LocalDateTime.now(), errorCode));
+    }
+
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public String handleAccessDenied() {
+        return "redirect:/mvc/login";
     }
 
     @AllArgsConstructor
