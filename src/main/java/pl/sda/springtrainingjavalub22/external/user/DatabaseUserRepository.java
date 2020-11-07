@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import pl.sda.springtrainingjavalub22.domain.user.User;
 import pl.sda.springtrainingjavalub22.domain.user.UserRepository;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class DatabaseUserRepository implements UserRepository {
@@ -19,5 +21,11 @@ public class DatabaseUserRepository implements UserRepository {
                 .role(user.getRole())
                 .build();
         jpaUserRepository.save(entity);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return jpaUserRepository.findByUsername(username)
+                .map(ent -> new User(ent.getUsername(), ent.getPassword(), ent.getRole()));
     }
 }
