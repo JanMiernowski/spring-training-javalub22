@@ -46,6 +46,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .loginPage("/mvc/login")
                         .loginProcessingUrl("/mvc/authenticate")
                         .defaultSuccessUrl("/mvc/car")
+                .and()
+                    .logout()
+                        .logoutUrl("/mvc/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                 .and().csrf().disable();
     }
 }

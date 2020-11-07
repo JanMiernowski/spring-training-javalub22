@@ -11,6 +11,10 @@
             <li><a th:href="@{/}">Strona główna</a></li>
             <li><a th:href="@{/mvc/car}">Dostępne samochody</a></li>
         </ul>
+
+        <form method="post" th:action="@{/mvc/logout}">
+            <input type="submit" value="Wyloguj"/>
+        </form>
     </div>
 
     <div th:fragment="footer">
