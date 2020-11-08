@@ -36,7 +36,7 @@ public class RentPriceCalculatorTest {
         //when
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
-        Assertions.assertEquals(BigDecimal.valueOf(990L), price);
+        Assertions.assertEquals(BigDecimal.valueOf(990L).setScale(2), price.setScale(2));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class RentPriceCalculatorTest {
         //when
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
-        Assertions.assertEquals(BigDecimal.valueOf(375L), price);
+        Assertions.assertEquals(BigDecimal.valueOf(375L).setScale(2), price.setScale(2));
     }
 
     //Co się stanie gdy zniżki przekroczą 50%?
@@ -67,7 +67,7 @@ public class RentPriceCalculatorTest {
         //when
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
-        Assertions.assertEquals(BigDecimal.valueOf(250L), price);
+        Assertions.assertEquals(BigDecimal.valueOf(250L).setScale(2), price.setScale(2));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class RentPriceCalculatorTest {
         //when
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
-        Assertions.assertEquals(BigDecimal.valueOf(600L), price);
+        Assertions.assertEquals(BigDecimal.valueOf(600L).setScale(2), price.setScale(2));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class RentPriceCalculatorTest {
         //when
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
-        Assertions.assertEquals(BigDecimal.valueOf(750L), price);
+        Assertions.assertEquals(BigDecimal.valueOf(750L).setScale(2), price.setScale(2));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class RentPriceCalculatorTest {
         //when
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
-        Assertions.assertEquals(BigDecimal.valueOf(450L), price);
+        Assertions.assertEquals(BigDecimal.valueOf(450L).setScale(2), price.setScale(2));
     }
 
     @Test
@@ -129,7 +129,7 @@ public class RentPriceCalculatorTest {
         //when
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
-        Assertions.assertEquals(BigDecimal.valueOf(500L), price);
+        Assertions.assertEquals(BigDecimal.valueOf(500L).setScale(2), price.setScale(2));
     }
 
     @Test
@@ -173,6 +173,6 @@ public class RentPriceCalculatorTest {
         //when
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
-        assertEquals(BigDecimal.valueOf(100L), price);
+        assertEquals(BigDecimal.valueOf(100L).setScale(2), price.setScale(2));
     }
 }
