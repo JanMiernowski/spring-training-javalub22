@@ -2,6 +2,7 @@ package pl.sda.springtrainingjavalub22.domain.rent;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.mockito.internal.util.collections.Sets;
 
 import java.math.BigDecimal;
@@ -14,7 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RentPriceCalculatorTest {
 
-    private RentPriceCalculator calculator = new RentPriceCalculator();
+    private RentInfoValidator validator = Mockito.mock(RentInfoValidator.class);
+
+    private RentPriceCalculator calculator = new RentPriceCalculator(validator);
 
     @Test
     public void shouldThrowExceptionWhenRentPeriodIsShortenThanOneDay() {
@@ -130,36 +133,6 @@ public class RentPriceCalculatorTest {
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
         Assertions.assertEquals(BigDecimal.valueOf(500L).setScale(2), price.setScale(2));
-    }
-
-    @Test
-    public void shouldThrowExceptionWhenDatesAreNull() {
-        //given
-        RentInfo rentInfo = new RentInfo(null, null,
-                BigDecimal.valueOf(100L),
-                new HashSet<>(),
-                new HashSet<>()
-        );
-        //when
-        IllegalArgumentException ex =
-                assertThrows(IllegalArgumentException.class, () -> calculator.calculatePrice(rentInfo));
-        //then
-        assertEquals("Dates should be passed", ex.getMessage());
-    }
-
-    @Test
-    public void shouldThrowExceptionWhenCarPriceIsNegative() {
-        //given
-        RentInfo rentInfo = new RentInfo(LocalDate.now(), LocalDate.now().plusDays(1),
-                BigDecimal.valueOf(-100L),
-                new HashSet<>(),
-                new HashSet<>()
-        );
-        //when
-        IllegalArgumentException ex =
-                assertThrows(IllegalArgumentException.class, () -> calculator.calculatePrice(rentInfo));
-        //then
-        assertEquals("Price cannot be negative", ex.getMessage());
     }
 
     @Test

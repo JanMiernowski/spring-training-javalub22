@@ -1,13 +1,18 @@
 package pl.sda.springtrainingjavalub22.domain.rent;
 
+import lombok.AllArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+@AllArgsConstructor
 public class RentPriceCalculator {
 
+    private RentInfoValidator validator;
+
     public BigDecimal calculatePrice(RentInfo rentInfo) {
-        validateRentInfo(rentInfo);
+        validator.validateRentInfo(rentInfo);
 
         long days = calculatePeriodLength(rentInfo);
 
@@ -69,15 +74,6 @@ public class RentPriceCalculator {
             throw new IllegalStateException("Period should be at least 1 day");
         }
         return days;
-    }
-
-    private void validateRentInfo(RentInfo rentInfo) {
-        if (rentInfo.getFrom() == null || rentInfo.getTo() == null) {
-            throw new IllegalArgumentException("Dates should be passed");
-        }
-        if (rentInfo.getPriceForDay().compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
-        }
     }
 
 }
