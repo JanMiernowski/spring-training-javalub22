@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.util.collections.Sets;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,8 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class RentPriceCalculatorTest {
 
     private RentInfoValidator validator = Mockito.mock(RentInfoValidator.class);
+    private ExchangeRateRepository rateRepository = Mockito.mock(ExchangeRateRepository.class);
 
-    private RentPriceCalculator calculator = new RentPriceCalculator(validator);
+    private RentPriceCalculator calculator = new RentPriceCalculator(validator, rateRepository);
 
     @Test
     public void shouldThrowExceptionWhenRentPeriodIsShortenThanOneDay() {
@@ -147,5 +149,47 @@ public class RentPriceCalculatorTest {
         BigDecimal price = calculator.calculatePrice(rentInfo);
         //then
         assertEquals(BigDecimal.valueOf(100L).setScale(2), price.setScale(2));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenExchangeRateIsNotPresentForGivenCurrency() {
+        //given
+        RentInfo rentInfo = new RentInfo(LocalDate.now(), LocalDate.now().plusDays(11),
+                BigDecimal.valueOf(100L), new HashSet<>(), new HashSet<>());
+        //when
+        IllegalStateException ex = assertThrows(IllegalStateException.class,
+                () -> calculator.calculatePriceInDifferentCurrency(rentInfo, "USD"));
+        //then
+        assertEquals("There is no rate for currency USD", ex.getMessage());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenGivenCurrencyIsNotPresent() {
+        //given
+        RentInfo rentInfo = new RentInfo(LocalDate.now(), LocalDate.now().plusDays(11),
+                BigDecimal.valueOf(100L), new HashSet<>(), new HashSet<>());
+        //when
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> calculator.calculatePriceInDifferentCurrency(rentInfo, ""));
+        //then
+        assertEquals("Currency must be present", ex.getMessage());
+    }
+
+    @Test
+    public void shouldCalculatePriceInDifferentCurrency() {
+        //given
+        RentInfo rentInfo = new RentInfo(LocalDate.now(), LocalDate.now().plusDays(8),
+                BigDecimal.valueOf(100L), new HashSet<>(), new HashSet<>());
+
+        Mockito.when(rateRepository.getExchangeRate("USD")).thenReturn(BigDecimal.valueOf(0.25));
+        //zamiast konkretnej wartości Mockito.any()
+        //when
+        BigDecimal price = calculator.calculatePriceInDifferentCurrency(rentInfo, "USD");
+        //then
+        assertEquals(BigDecimal.valueOf(200).setScale(2), price.setScale(2));
+        //TO sprawdzi czy ta metoda zostala wykonana dokladnie 1 raz
+        Mockito.verify(rateRepository, Mockito.times(1)).getExchangeRate("USD");
+        //Weryfikuje dodatkowo czy nie wywoluje zadnej metody na tym obiekcie z innymi parametrami
+        Mockito.verifyNoMoreInteractions(rateRepository);
     }
 }

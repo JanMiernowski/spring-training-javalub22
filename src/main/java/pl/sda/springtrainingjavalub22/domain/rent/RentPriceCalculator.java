@@ -10,6 +10,18 @@ import java.util.Objects;
 public class RentPriceCalculator {
 
     private RentInfoValidator validator;
+    private ExchangeRateRepository exchangeRateRepository;
+
+    public BigDecimal calculatePriceInDifferentCurrency(RentInfo rentInfo, String currency) {
+        if (currency == null || currency.isEmpty()) {
+            throw new IllegalArgumentException("Currency must be present");
+        }
+        BigDecimal exchangeRate = exchangeRateRepository.getExchangeRate(currency);
+        if (exchangeRate == null || exchangeRate.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalStateException("There is no rate for currency " + currency);
+        }
+        return calculatePrice(rentInfo).multiply(exchangeRate);
+    }
 
     public BigDecimal calculatePrice(RentInfo rentInfo) {
         validator.validateRentInfo(rentInfo);
