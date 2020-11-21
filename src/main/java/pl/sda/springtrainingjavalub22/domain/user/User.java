@@ -14,6 +14,7 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private Boolean enabled;
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);

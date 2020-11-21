@@ -16,7 +16,7 @@ public class DatabseUserRepositoryTest {
     @Test
     public void shouldPersistUserInRepository() {
         //given
-        User user = new User("login", "pass", "admin");
+        User user = new User("login", "pass", "admin", true);
         //when
         sut.create(user);
         //then

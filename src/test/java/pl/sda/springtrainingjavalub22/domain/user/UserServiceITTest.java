@@ -24,7 +24,7 @@ public class UserServiceITTest {
     public void shouldCreateUser() {
         //given
         String password = "StrongPassword1!";
-        User user = new User("login", password, "admin");
+        User user = new User("login", password, "admin", true);
         //when
         userService.register(user);
         //then

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="thymeleaf.org">
+<head>
+</head>
+<body>
+<h3>Witaj w wypożyczalnie SDA</span></h3>
+<p>Twoje konto zostało utworzone, ale nie jest aktywne. Kliknij w poniższy link, aby aktywować:</p>
+<p>
+    <a th:href="${'http://localhost:8080/mvc/register/activation/' + token}">
+        Aktywuj konto dla <span th:text="${username}"></span>
+    </a>
+</p>
+<p>Twój token jest ważny do : <span th:text="${validTo}"></span></p>
+
+
+</body>
+</html>

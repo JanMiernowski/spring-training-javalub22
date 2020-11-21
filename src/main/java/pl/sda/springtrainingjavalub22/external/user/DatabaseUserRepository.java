@@ -19,6 +19,7 @@ public class DatabaseUserRepository implements UserRepository {
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .role(user.getRole())
+                .enabled(false)
                 .build();
         jpaUserRepository.save(entity);
     }
@@ -26,6 +27,15 @@ public class DatabaseUserRepository implements UserRepository {
     @Override
     public Optional<User> findByUsername(String username) {
         return jpaUserRepository.findByUsername(username)
-                .map(ent -> new User(ent.getUsername(), ent.getPassword(), ent.getRole()));
+                .map(ent -> new User(ent.getUsername(), ent.getPassword(), ent.getRole(), ent.getEnabled()));
+    }
+
+    @Override
+    public void activate(String username) {
+        jpaUserRepository.findByUsername(username)
+                .ifPresent(user -> {
+                    user.activate();
+                    jpaUserRepository.save(user);
+                });
     }
 }

@@ -1,33 +1,27 @@
 package pl.sda.springtrainingjavalub22.external.user;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
+@Setter
 @Entity
-@Table(name = "users")
-public class UserEntity {
+@Table
+public class ActivationTokenEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length = 100)
     private String username;
+    private String token;
 
-    private String password;
-
-    private String role;
-
-    private Boolean enabled = false;
-
-    public void activate() {
-        enabled = true;
-    }
+    private LocalDateTime validTo;
 }
