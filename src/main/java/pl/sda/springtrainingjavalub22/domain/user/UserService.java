@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import pl.sda.springtrainingjavalub22.domain.email.Email;
 import pl.sda.springtrainingjavalub22.domain.email.EmailRepository;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -19,9 +22,17 @@ public class UserService {
 
         userRepository.create(user);
 
+        sendWelcomeEmail(user);
+    }
+
+    private void sendWelcomeEmail(User user) {
+        Set<String> attachments = new HashSet<>();
+        attachments.add("attachment/regulamin.pdf");
+
         emailRepository.sendEmail(
                 new Email(user.getUsername(),
                         "Witamy w wypożyczalni",
-                        "Witaj w naszej wypożyczalni samochodów SDA."));
+                        "Witaj w naszej wypożyczalni samochodów SDA.",
+                        attachments));
     }
 }
