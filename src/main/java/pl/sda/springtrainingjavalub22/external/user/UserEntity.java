@@ -18,7 +18,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, length = 100)
+    @Column(unique = true, length = 100, name = "login")
     private String username;
 
     private String password;

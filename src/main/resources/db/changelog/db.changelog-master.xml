@@ -79,4 +79,15 @@
                       oldTableName="activation_token_entity"/>
     </changeSet>
 
+    <changeSet author="Tomasz.Rutyna" id="1605968499000-1">
+        <addColumn tableName="cars" >
+            <column name="country_of_origin"
+                    type="varchar(50)"/>
+        </addColumn>
+        <renameColumn  columnDataType="varchar(100)"
+                       newColumnName="login"
+                       oldColumnName="username"
+                       tableName="users"/>
+    </changeSet>
+
 </databaseChangeLog>
