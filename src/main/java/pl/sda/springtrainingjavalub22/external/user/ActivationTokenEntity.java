@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "activation_tokens")
 public class ActivationTokenEntity {
 
     @Id

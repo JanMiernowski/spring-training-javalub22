@@ -73,5 +73,10 @@
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    
+
+    <changeSet  author="Tomasz.Rutyna"  id="1605968399000-1">
+        <renameTable newTableName="activation_tokens"
+                      oldTableName="activation_token_entity"/>
+    </changeSet>
+
 </databaseChangeLog>
