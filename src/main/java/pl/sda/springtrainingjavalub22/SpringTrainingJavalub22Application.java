@@ -5,9 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import pl.sda.springtrainingjavalub22.config.CompanyInfo;
+import pl.sda.springtrainingjavalub22.config.SmtpProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(value = {CompanyInfo.class})
+@EnableConfigurationProperties(value = {CompanyInfo.class, SmtpProperties.class})
 @EnableScheduling
 public class SpringTrainingJavalub22Application {
 

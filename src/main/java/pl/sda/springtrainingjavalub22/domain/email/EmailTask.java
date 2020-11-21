@@ -12,7 +12,7 @@ public class EmailTask {
 
     @Scheduled(fixedDelay = 10000)
     public void sendEmails() {
-        emailRepository.sendEmail("me@wp.pl", "bla bla");
+        //emailRepository.sendEmail("me@wp.pl", "bla bla");
     }
 
 }
