@@ -55,4 +55,23 @@
             <column name="insurance_id"/>
         </createIndex>
     </changeSet>
+    
+    <changeSet id="1605968299000-1" author="Tomasz.Rutyna">
+        <createTable tableName="rents">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" />
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="car_id" type="BIGINT"/>
+            <column name="rent_from" type="date"/>
+            <column name="rent_to" type="date"/>
+        </createTable>
+        <createIndex tableName="rents" indexName="fk_rent_car">
+            <column name="car_id"/>
+        </createIndex>
+        <createIndex tableName="rents" indexName="fk_rent_user">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    
 </databaseChangeLog>
